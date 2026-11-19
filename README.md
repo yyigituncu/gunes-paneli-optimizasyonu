@@ -1,29 +1,41 @@
-# gunes-paneli-optimizasyonu# Güneş Paneli Yerleşimi Optimizasyonu (Genetik Algoritma)
+# Güneş Paneli Yerleşimi Optimizasyonu (Genetik Algoritma)
 
-Bu proje, bir belediyenin güneş enerjisi sistemi kurulumunda enerji verimini maksimize etmek amacıyla geliştirilmiştir. Panellerin optimum **eğim açısı ($x_1$)** ve **yön açısı ($x_2$)**, Genetik Algoritma (GA) kullanılarak belirlenmiştir.
+Bir belediye güneş enerjisi kurulumu senaryosunda enerji verimini maksimize eden optimum **eğim açısı ($x_1$)** ve **yön açısı ($x_2$)** değerlerini Genetik Algoritma (GA) ile belirleyen optimizasyon çalışması.
 
-## 📋 Proje Bilgileri
-* **Öğrenci:** Sami Yiğit Uncu
-* **Okul No:** 2212721051
-* **Senaryo:** 1 (Güneş Paneli Optimizasyonu)
+## Matematiksel Model
 
-## 🎯 Problem Tanımı ve Matematiksel Model
-Amaç, panellerden alınan toplam enerji verimini maksimize etmektir.
+**Amaç Fonksiyonu (Maksimizasyon):**
 
-**Amaç Fonksiyonu:**
 $$y = 6x_1 + 4x_2 - 0.1x_1^2$$
 
 **Değişken Sınırları:**
-* **Eğim ($x_1$):** 10° - 45°
-* **Yön ($x_2$):** 15° - 90° *(Kısıt gereği alt sınır 15 alınmıştır)*
+- **Eğim açısı ($x_1$):** $[10^\circ, 45^\circ]$
+- **Yön açısı ($x_2$):** $[15^\circ, 90^\circ]$
 
-**Kısıtlar (Constraints):**
-Projede **Ceza (Penalty) Yöntemi** kullanılmıştır.
-1.  `x1 + 0.5x2 <= 60` (Fiziksel Kurulum Sınırı)
-2.  Bu sınır aşılırsa algoritmaya yüksek ceza puanı verilerek çözüm elenir.
+**Kısıtlar ve Ceza Yöntemi:**
+- Fiziksel kurulum kısıtı: $x_1 + 0.5x_2 \le 60$
+- `geneticalgorithm` paketi minimizasyon yaptığı için amaç fonksiyonu $-y$ olarak tanımlanmıştır; sınırı aşan aday çözümlere sabit ceza (`10000`) uygulanır.
 
-## ⚙️ Kurulum ve Çalıştırma
-Proje Python dilinde, Jupyter Notebook üzerinde geliştirilmiştir. Çalıştırmak için aşağıdaki kütüphaneler gereklidir:
+## Algoritma Parametreleri ve Örnek Çıktı
+
+Notebook'taki `100` iterasyon, `50` popülasyon boyutu, `0.1` mutasyon ve `0.5` uniform çaprazlama parametreleriyle elde edilen kayıtlı çalıştırma sonucu:
+
+| Metrik | Değer |
+| :--- | :--- |
+| **Optimum Eğim ($x_1$)** | `15.3142°` |
+| **Optimum Yön ($x_2$)** | `89.3302°` |
+| **Maksimum Enerji ($y$)** | `425.7533 birim` |
+| **Kısıt Kontrolü ($x_1 + 0.5x_2 \le 60$)** | `59.9792` (Sağlanıyor) |
+
+## Kurulum ve Çalıştırma
 
 ```bash
-pip install geneticalgorithm matplotlib numpy
+git clone https://github.com/yyigituncu/gunes-paneli-optimizasyonu.git
+cd gunes-paneli-optimizasyonu
+pip install -r requirements.txt
+jupyter notebook gunes-paneli-optimizasyonu.ipynb
+```
+
+## Lisans
+
+Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
